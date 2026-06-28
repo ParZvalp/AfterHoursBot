@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Minecraft",
+    "genre": "Sandbox",
+    "players": "1-8+",
+    "description": "Build, explore, and survive in an endless world."
+  },
+  {
+    "name": "Terraria",
+    "genre": "Sandbox Adventure",
+    "players": "1-8",
+    "description": "Dig, fight, explore, and build."
+  },
+  {
+    "name": "Lethal Company",
+    "genre": "Co-op Horror",
+    "players": "1-4",
+    "description": "Work together to collect scrap while surviving monsters."
+  },
+  {
+    "name": "Phasmophobia",
+    "genre": "Co-op Horror",
+    "players": "1-4",
+    "description": "Investigate haunted locations with friends."
+  },
+  {
+    "name": "Stardew Valley",
+    "genre": "Farming RPG",
+    "players": "1-8",
+    "description": "Relax, farm, fish, and build your dream life."
+  },
+  {
+    "name": "Deep Rock Galactic",
+    "genre": "Co-op FPS",
+    "players": "1-4",
+    "description": "Mine resources and fight alien bugs."
+  }
+]
