@@ -1,14 +1,14 @@
 import json
-import random
 import discord
+
+from database.game_repository import GameRepository
 
 
 class GameService:
 
     def __init__(self):
 
-        with open("data/games.json", "r", encoding="utf-8") as file:
-            self.games = json.load(file)
+        self.repo = GameRepository()
 
         with open("data/history.json", "r", encoding="utf-8") as file:
             self.history = json.load(file)
@@ -17,12 +17,15 @@ class GameService:
 
         last_game = self.history["last_game"]
 
-        available = [
-            game for game in self.games
-            if game["name"] != last_game
-        ]
+        while True:
 
-        game = random.choice(available)
+            game = self.repo.random_game()
+
+            if game is None:
+                raise Exception("No games found in the database.")
+
+            if game["name"] != last_game:
+                break
 
         self.history["last_game"] = game["name"]
 
@@ -52,6 +55,34 @@ class GameService:
             value=game["players"],
             inline=True
         )
+
+        embed.add_field(
+            name="📅 Release",
+            value=game["release_year"] or "Unknown",
+            inline=True
+        )
+
+        embed.add_field(
+            name="🖥️ Platform",
+            value=game["platform"] or "Unknown",
+            inline=True
+        )
+
+        embed.add_field(
+            name="🏢 Developer",
+            value=game["developer"] or "Unknown",
+            inline=True
+        )
+
+        if game["steam_url"]:
+            embed.add_field(
+                name="🔗 Steam",
+                value=game["steam_url"],
+                inline=False
+            )
+
+        if game["cover"]:
+            embed.set_image(url=game["cover"])
 
         embed.set_footer(text="AfterHoursBot")
 

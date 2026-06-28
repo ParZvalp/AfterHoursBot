@@ -1,38 +1,57 @@
 [
   {
-    "name": "Minecraft",
-    "genre": "Sandbox",
-    "players": "1-8+",
-    "description": "Build, explore, and survive in an endless world."
-  },
-  {
     "name": "Terraria",
+    "description": "Dig, fight, explore, and build.",
     "genre": "Sandbox Adventure",
     "players": "1-8",
-    "description": "Dig, fight, explore, and build."
+    "release_year": 2011,
+    "platform": "Steam",
+    "developer": "Re-Logic",
+    "steam_url": "https://store.steampowered.com/app/105600/Terraria/",
+    "cover": ""
   },
   {
     "name": "Lethal Company",
+    "description": "Work together to collect scrap while surviving monsters.",
     "genre": "Co-op Horror",
     "players": "1-4",
-    "description": "Work together to collect scrap while surviving monsters."
-  },
-  {
-    "name": "Phasmophobia",
-    "genre": "Co-op Horror",
-    "players": "1-4",
-    "description": "Investigate haunted locations with friends."
+    "release_year": 2023,
+    "platform": "Steam",
+    "developer": "Zeekerss",
+    "steam_url": "https://store.steampowered.com/app/1966720/Lethal_Company/",
+    "cover": ""
   },
   {
     "name": "Stardew Valley",
+    "description": "Build your dream farm and relax.",
     "genre": "Farming RPG",
     "players": "1-8",
-    "description": "Relax, farm, fish, and build your dream life."
+    "release_year": 2016,
+    "platform": "Steam",
+    "developer": "ConcernedApe",
+    "steam_url": "https://store.steampowered.com/app/413150/Stardew_Valley/",
+    "cover": ""
   },
   {
-    "name": "Deep Rock Galactic",
-    "genre": "Co-op FPS",
+    "name": "Minecraft",
+    "description": "Explore, survive, and build anything you imagine.",
+    "genre": "Sandbox",
+    "players": "1-8+",
+    "release_year": 2011,
+    "platform": "PC",
+    "developer": "Mojang Studios",
+    "steam_url": "",
+    "cover": ""
+  },
+  {
+    "name": "Phasmophobia",
+    "description": "Investigate haunted locations with friends.",
+    "genre": "Co-op Horror",
     "players": "1-4",
-    "description": "Mine resources and fight alien bugs."
+    "release_year": 2020,
+    "platform": "Steam",
+    "developer": "Kinetic Games",
+    "steam_url": "https://store.steampowered.com/app/739630/Phasmophobia/",
+    "cover": ""
   }
 ]
