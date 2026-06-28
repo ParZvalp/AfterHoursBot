@@ -1,7 +1,7 @@
 import json
 import random
 import discord
-
+from services.game_service import GameService
 from discord.ext import commands
 from discord import app_commands
 
@@ -10,6 +10,7 @@ class Games(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.service = GameService()
 
     @app_commands.command(
         name="game",
@@ -17,34 +18,7 @@ class Games(commands.Cog):
     )
     async def game(self, interaction: discord.Interaction):
 
-        with open(
-            "data/games.json",
-            encoding="utf-8"
-        ) as file:
-
-            games = json.load(file)
-
-        game = random.choice(games)
-
-        embed = discord.Embed(
-            title=f"🎮 {game['name']}",
-            description=game["description"],
-            color=discord.Color.green()
-        )
-
-        embed.add_field(
-            name="🎯 Genre",
-            value=game["genre"]
-        )
-
-        embed.add_field(
-            name="👥 Players",
-            value=game["players"]
-        )
-
-        embed.set_footer(
-            text="AfterHoursBot"
-        )
+        embed = self.service.create_embed()
 
         await interaction.response.send_message(
             embed=embed

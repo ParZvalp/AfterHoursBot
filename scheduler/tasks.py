@@ -1,7 +1,7 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
 from config import Config
-
+from services.game_service import GameService
 
 class TaskScheduler:
 
@@ -39,4 +39,10 @@ class TaskScheduler:
 
         print(f"✅ Found channel: {channel.name}")
 
-        await channel.send("🧪 Scheduler Test Successful!")
+        service = GameService()
+
+        embed = service.create_embed(
+            title="🌅 Game of the Day"
+        )
+
+        await channel.send(embed=embed)
