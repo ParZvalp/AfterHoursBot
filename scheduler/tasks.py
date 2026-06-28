@@ -1,43 +1,43 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from datetime import datetime
 from config import Config
 from services.game_service import GameService
+
 
 class TaskScheduler:
 
     def __init__(self, bot):
         self.bot = bot
         self.config = Config()
-        self.scheduler = AsyncIOScheduler(timezone=self.config.timezone)
+        self.scheduler = AsyncIOScheduler(
+            timezone=self.config.timezone
+        )
 
     def start(self):
 
         print("✅ Scheduler Started")
 
+        # Daily at 8:00 AM
         self.scheduler.add_job(
-            self.test_scheduler,
-            trigger="interval",
-            minutes=1,
-            id="scheduler_test"
+            self.post_game_of_the_day,
+            trigger="cron",
+            hour=8,
+            minute=0,
+            id="daily_game"
         )
 
         self.scheduler.start()
 
         print(self.scheduler.get_jobs())
 
-    async def test_scheduler(self):
-
-        print(f"⏰ Scheduler fired at {datetime.now()}")
+    async def post_game_of_the_day(self):
 
         channel = self.bot.get_channel(
             self.config.daily_channel
         )
 
         if channel is None:
-            print("❌ Channel not found!")
+            print("❌ Daily channel not found.")
             return
-
-        print(f"✅ Found channel: {channel.name}")
 
         service = GameService()
 
@@ -46,3 +46,5 @@ class TaskScheduler:
         )
 
         await channel.send(embed=embed)
+
+        print("✅ Posted Game of the Day")

@@ -1,13 +1,14 @@
 import os
-import asyncio
 import discord
-from scheduler.tasks import TaskScheduler
 from discord.ext import commands
 from dotenv import load_dotenv
+
+from scheduler.tasks import TaskScheduler
 
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
+SERVER_ID = int(os.getenv("SERVER_ID"))
 
 
 class AfterHoursBot(commands.Bot):
@@ -22,20 +23,30 @@ class AfterHoursBot(commands.Bot):
         )
 
     async def setup_hook(self):
-
+        # Load all cogs
         extensions = [
             "cogs.games",
+            "cogs.dev"
+            # "cogs.fun",
+            # "cogs.utility",
+            # "cogs.events",
+            # "cogs.daily",
         ]
 
         for extension in extensions:
             await self.load_extension(extension)
 
-        synced = await self.tree.sync()
+        # Sync commands only to your development server
+        guild = discord.Object(id=SERVER_ID)
+
+        # Copy all global commands to your development server
+        self.tree.copy_global_to(guild=guild)
+
+        synced = await self.tree.sync(guild=guild)
 
         print(f"✅ Synced {len(synced)} command(s)")
 
     async def on_ready(self):
-
         print("=" * 40)
         print(f"Logged in as {self.user}")
         print("=" * 40)
@@ -48,7 +59,7 @@ class AfterHoursBot(commands.Bot):
                 self.scheduler.start()
             except Exception as e:
                 print("❌ Scheduler failed to start:")
-                print(repr(e))
+                print(e)
 
 
 bot = AfterHoursBot()

@@ -6,11 +6,30 @@ import discord
 class GameService:
 
     def __init__(self):
+
         with open("data/games.json", "r", encoding="utf-8") as file:
             self.games = json.load(file)
 
+        with open("data/history.json", "r", encoding="utf-8") as file:
+            self.history = json.load(file)
+
     def random_game(self):
-        return random.choice(self.games)
+
+        last_game = self.history["last_game"]
+
+        available = [
+            game for game in self.games
+            if game["name"] != last_game
+        ]
+
+        game = random.choice(available)
+
+        self.history["last_game"] = game["name"]
+
+        with open("data/history.json", "w", encoding="utf-8") as file:
+            json.dump(self.history, file, indent=4)
+
+        return game
 
     def create_embed(self, title="🎮 Random Game Recommendation"):
 
