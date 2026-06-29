@@ -35,7 +35,7 @@ MIN_POOL_SIZE = 5
 WEIGHT_RATING     = 5.0   # RAWG rating is 0–5
 WEIGHT_METACRITIC = 5.0   # Normalized from 0–100
 WEIGHT_RECENCY    = 3.0   # Newer games score higher
-WEIGHT_REPEAT     = -20.0 # Heavy penalty for recently featured games
+WEIGHT_REPEAT     = -50.0 # Heavy penalty for recently featured games
 
 
 class RecommendationService:
@@ -118,7 +118,10 @@ class RecommendationService:
 
         for game in all_games:
             score = self._score_game(game, recent_ids)
-            scored.append((score, game))
+            # Add random jitter (±2 pts) so high scorers don't
+            # always win — keeps recommendations feeling fresh
+            jitter = random.uniform(-2.0, 2.0)
+            scored.append((score + jitter, game))
 
         scored.sort(key=lambda x: x[0], reverse=True)
 
