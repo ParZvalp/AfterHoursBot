@@ -1,4 +1,3 @@
-
 import discord
 
 from discord.ext import commands
@@ -45,6 +44,8 @@ class Admin(commands.Cog):
         interaction: discord.Interaction
     ):
 
+        await interaction.response.defer()
+
         total_games = self.repo.count_games()
 
         embed = discord.Embed(
@@ -62,7 +63,7 @@ class Admin(commands.Cog):
             text="AfterHoursBot"
         )
 
-        await interaction.response.send_message(
+        await interaction.followup.send(
             embed=embed
         )
 
