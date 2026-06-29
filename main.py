@@ -3,9 +3,10 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-from bot.scheduler.tasks import TaskScheduler
-
 load_dotenv()
+
+from core.database.schema import *
+from bot.scheduler.tasks import TaskScheduler
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER_ID = int(os.getenv("SERVER_ID"))

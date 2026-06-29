@@ -9,7 +9,7 @@ db = Database()
 db.execute("""
 CREATE TABLE IF NOT EXISTS games (
 
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
 
     provider TEXT NOT NULL,
     provider_id INTEGER NOT NULL,
@@ -56,4 +56,3 @@ CREATE TABLE IF NOT EXISTS bot_state (
 """)
 
 print("✅ Database Ready")
-

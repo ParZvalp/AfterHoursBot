@@ -1,32 +1,40 @@
-import sqlite3
+import os
+import psycopg2
+import psycopg2.extras
 
 
 class Database:
 
     def __init__(self):
+        self.url = os.environ.get("DATABASE_URL")
 
-        self.connection = sqlite3.connect(
-            "afterhours.db"
-        )
+        if self.url is None:
+            raise Exception("DATABASE_URL environment variable not set.")
 
-        self.connection.row_factory = sqlite3.Row
+    def _connect(self):
+        return psycopg2.connect(self.url)
 
-        self.cursor = self.connection.cursor()
+    def execute(self, sql, params=None):
+        sql = sql.replace("?", "%s")
+        with self._connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql, params or ())
+            conn.commit()
 
-    def execute(self, query, values=()):
+    def fetchone(self, sql, params=None):
+        sql = sql.replace("?", "%s")
+        with self._connect() as conn:
+            with conn.cursor(
+                cursor_factory=psycopg2.extras.RealDictCursor
+            ) as cur:
+                cur.execute(sql, params or ())
+                return cur.fetchone()
 
-        self.cursor.execute(query, values)
-
-        self.connection.commit()
-
-    def fetchone(self, query, values=()):
-
-        self.cursor.execute(query, values)
-
-        return self.cursor.fetchone()
-
-    def fetchall(self, query, values=()):
-
-        self.cursor.execute(query, values)
-
-        return self.cursor.fetchall()
+    def fetchall(self, sql, params=None):
+        sql = sql.replace("?", "%s")
+        with self._connect() as conn:
+            with conn.cursor(
+                cursor_factory=psycopg2.extras.RealDictCursor
+            ) as cur:
+                cur.execute(sql, params or ())
+                return cur.fetchall()
