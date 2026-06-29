@@ -7,7 +7,7 @@ from bot.scheduler.tasks import TaskScheduler
 
 load_dotenv()
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER_ID = int(os.getenv("SERVER_ID"))
 
 
