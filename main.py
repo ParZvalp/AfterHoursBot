@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-from scheduler.tasks import TaskScheduler
+from bot.scheduler.tasks import TaskScheduler
 
 load_dotenv()
 
@@ -25,8 +25,9 @@ class AfterHoursBot(commands.Bot):
     async def setup_hook(self):
         # Load all cogs
         extensions = [
-            "cogs.games",
-            "cogs.dev"
+            "bot.cogs.games",
+            "bot.cogs.dev",
+            "bot.cogs.admin",
             # "cogs.fun",
             # "cogs.utility",
             # "cogs.events",

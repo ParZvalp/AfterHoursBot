@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
-from services.game_service import GameService
+from bot.services.game_service import GameService
 
 
 class Dev(commands.Cog):
