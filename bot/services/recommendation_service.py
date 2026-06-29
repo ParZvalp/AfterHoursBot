@@ -52,17 +52,16 @@ class RecommendationService:
 
     def generate_today(self):
         """
-        Sync latest games from RAWG, pick today's featured
-        game using the weighted scorer, and persist the choice.
+        Pick today's featured game using the weighted scorer
+        and persist the choice. Sync is handled separately
+        by the scheduler to avoid interaction timeouts.
         """
-
-        imported = self.sync.sync_popular()
 
         game = self._pick_weighted()
 
         self._save_featured(game)
 
-        return imported, game
+        return 0, game
 
     def current_game(self):
         """
